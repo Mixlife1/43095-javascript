@@ -1,8 +1,12 @@
 function renderProductos() {
     let productos = cargarProductosLS();
+    let textoBusqueda = document.getElementById("textoBusqueda").value;
     let contenido = "";
 
-    productos.forEach(producto => {
+    productos = textoBusqueda ? productos.filter(item => item.nombre.toUpperCase().includes(textoBusqueda.toUpperCase())) : productos;
+
+    if (productos.length > 0 ) {
+       productos.forEach(producto => {
         contenido += `<div class="col-md-3 mb-5">
         <a href="ver-producto.html" onclick="verProducto(${producto.id})" class="text-decoration-none">
             <div class="card text-center border border-0">
@@ -14,16 +18,20 @@ function renderProductos() {
             </div>
         </a>
       </div>`;
-    });
-
+    }); 
+    } else {
+        contenido += `<div class="alert alert-danger text-center" role="alert">No se encontraron productos por el termino de busqueda!</div>`;
+    } 
+    
+    
+    
     document.getElementById("contenido").innerHTML = contenido;
 };
 
 function verProducto(id) {
     let productos = cargarProductosLS();
     let producto = productos.find(item => item.id == id);
-    localStorage.setItem("producto", JSON.stringify(producto));
-    //location.href = "ver-producto.html"; //Redireccionar a la página pasada por parámetro
+    localStorage.setItem("producto", JSON.stringify(producto))
 }
 
 document.getElementById("btnBusqueda").onclick = renderProductos();

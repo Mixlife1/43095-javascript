@@ -1,6 +1,5 @@
 function renderProducto() {
     const producto = JSON.parse(localStorage.getItem("producto"));
-    console.log(producto);
     let contenido = `<div class="col-md-4 offset-md-3">
     <img src="${producto.imagen}" class="img-fluid" alt="${producto.nombre}">
     </div>
@@ -13,7 +12,5 @@ function renderProducto() {
     document.getElementById("contenido").innerHTML = contenido
 }
 
-
 renderProducto();
 renderBotonCarrito();
-
